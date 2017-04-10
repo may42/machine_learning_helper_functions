@@ -3,9 +3,9 @@ Some useful functions that I use for machine learning: learning curves, feature 
 
 ## Learning curves example:
 ```
-reg = sklearn.linear_model.Ridge(alpha=0.1)
-trainScores, testScores = give_learning_curves(reg, x_tr, y_tr, x_test, y_test)
-plt.plot(trainScores, 'r', testScores, 'g')
+est = sklearn.linear_model.Ridge(alpha=0.1)
+cv = model_selection.ShuffleSplit(n_splits=10, test_size=0.2)
+plot_learning_curves(est, X, y, "Ridge, alpha=0.1", cv=cv).show()
 ```
 Run example.py to see learning curves in action.
 
