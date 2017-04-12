@@ -41,7 +41,7 @@ class FeaturePreparer:
         return self.scaler.fit_transform(x_new)
 
 
-def plot_learning_curves(est, X, y, title, ylim=(.55, 1.005), cv=3, train_sizes=np.linspace(.05, 1.0, 10)):
+def plot_learning_curves(est, X, y, title, ylim=(.6, 1), cv=3, train_sizes=np.linspace(.05, 1, 10)):
     """
     plot the test and training learning curves
     est: estimator - must implement "fit" and "predict" methods
@@ -57,15 +57,15 @@ def plot_learning_curves(est, X, y, title, ylim=(.55, 1.005), cv=3, train_sizes=
 
 
 def create_learning_curves_plot(train_sizes, train_scores, test_scores, title, ylim=(.55, 1.005)):
-    plt.figure()
-    plt.title(title)
-    plt.ylim(*ylim)
-    plt.xlabel("number of tr. examples")
-    plt.ylabel("score")
     train_scores_mean = np.mean(train_scores, axis=1)
     train_scores_std = np.std(train_scores, axis=1)
     test_scores_mean = np.mean(test_scores, axis=1)
     test_scores_std = np.std(test_scores, axis=1)
+    plt.figure()
+    plt.ylim(*ylim)
+    plt.xlabel("number of tr. examples")
+    plt.ylabel("score")
+    plt.title("{} (accuracy={:.3f})".format(title, test_scores_mean[-1]))
     plt.grid()
 
     plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
@@ -78,4 +78,3 @@ def create_learning_curves_plot(train_sizes, train_scores, test_scores, title, y
 
     plt.legend(loc="best")
     return plt
-
